@@ -1,0 +1,26 @@
+diff -ur virt-manager-0.6.0/src/graphWidgets/Makefile.am virt-manager-0.6.0.new/src/graphWidgets/Makefile.am
+--- virt-manager-0.6.0/src/graphWidgets/Makefile.am	2008-09-10 21:37:12.000000000 +0200
++++ virt-manager-0.6.0.new/src/graphWidgets/Makefile.am	2008-09-23 12:05:39.449873592 +0200
+@@ -6,7 +6,7 @@
+ DEFSDIR :=  $(shell pkg-config --variable=defsdir pygtk-2.0)
+ 
+ pysparklinemodule.defs: sparkline.h cellrenderersparkline.h
+-	python $(CODEGENDIR)/h2def.py $^ > $@
++	python $(CODEGENDIR)/h2def.pyc $^ > $@
+ 
+ pysparklinemodule.c: pysparklinemodule.defs pysparklinemodule.override
+ 	pygtk-codegen-2.0 \
+Tylko w virt-manager-0.6.0.new/src/graphWidgets: Makefile.am~
+diff -ur virt-manager-0.6.0/src/graphWidgets/Makefile.in virt-manager-0.6.0.new/src/graphWidgets/Makefile.in
+--- virt-manager-0.6.0/src/graphWidgets/Makefile.in	2008-09-10 21:39:43.000000000 +0200
++++ virt-manager-0.6.0.new/src/graphWidgets/Makefile.in	2008-09-23 12:05:49.483205884 +0200
+@@ -574,7 +574,7 @@
+ 
+ 
+ pysparklinemodule.defs: sparkline.h cellrenderersparkline.h
+-	python $(CODEGENDIR)/h2def.py $^ > $@
++	python $(CODEGENDIR)/h2def.pyc $^ > $@
+ 
+ pysparklinemodule.c: pysparklinemodule.defs pysparklinemodule.override
+ 	pygtk-codegen-2.0 \
+Tylko w virt-manager-0.6.0.new/src/graphWidgets: Makefile.in~
