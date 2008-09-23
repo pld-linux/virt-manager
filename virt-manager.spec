@@ -22,34 +22,34 @@ BuildRequires:	python-pygtk-devel >= 2.14
 BuildRequires:	scrollkeeper
 
 # These two are just the oldest version tested
-Requires:	gnome-python2-gconf >= 1.99.11-7
 Requires:	pygtk2 >= 1.99.12-6
+Requires:	python-gnome-gconf >= 1.99.11-7
 # Absolutely require this version or newer
 Requires:	libvirt-python >= 0.4.5
 # Definitely does not work with earlier due to python API changes
-Requires:	dbus-python >= 0.61
+Requires:	python-dbus >= 0.61
 # Might work with earlier, but this is what we've tested
 Requires:	gnome-keyring >= 0.4.9
 # Minimum we've tested with
 # Although if you don't have this, comment it out and the app
 # will work just fine - keyring functionality will simply be
 # disabled
-Requires:	gnome-python2-gnomekeyring >= 2.15.4
-Requires:	gnome-python2-gnomevfs >= 2.15.4
+Requires:	python-gnome-desktop-keyring >= 2.15.4
+Requires:	python-gnome-vfs >= 2.15.4
 # Minimum we've tested with
 # Required for loading the glade UI
 # Required for our graphics which are currently SVG format
 # Required to install Xen & QEMU guests
-Requires:	librsvg2
-Requires:	libxml2-python >= 2.6.23
-Requires:	pygtk2-libglade
+Requires:	python-gnome-desktop-librsvg >= 2.14
+Requires:	python-libxml2 >= 2.6.23
+Requires:	python-pygtk-glade >= 2.12
 Requires:	python-virtinst >= 0.400.0
 # Earlier vte had broken python binding module
 Requires:	vte >= 0.12.2
 # For online help
 Requires:	scrollkeeper
 # For console widget
-Requires:	gtk-vnc-python >= 0.3.4
+Requires:	python-gtk-vnc >= 0.3.4
 # For local authentication against PolicyKit
 Requires:	PolicyKit-gnome
 
