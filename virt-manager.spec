@@ -25,7 +25,7 @@ BuildRequires:	scrollkeeper
 Requires:	pygtk2 >= 1.99.12-6
 Requires:	python-gnome-gconf >= 1.99.11-7
 # Absolutely require this version or newer
-Requires:	libvirt-python >= 0.4.5
+Requires:	python-libvirt >= 0.4.5
 # Definitely does not work with earlier due to python API changes
 Requires:	python-dbus >= 0.61
 # Might work with earlier, but this is what we've tested
@@ -119,9 +119,12 @@ fi
 %{_sysconfdir}/gconf/schemas/%{name}.schemas
 %attr(755,root,root) %{_bindir}/%{name}
 %{_libexecdir}/%{name}-launch
+%dir %{_libdir}/%{name}
 %{_libdir}/%{name}/*
 
+%dir %{_datadir}/%{name}
 %{_datadir}/%{name}/*.glade
+%dir %{_datadir}/%{name}/pixmaps
 %{_datadir}/%{name}/pixmaps/*.png
 %{_datadir}/%{name}/pixmaps/*.svg
 
@@ -129,12 +132,13 @@ fi
 #%{_datadir}/%{name}/*.pyc
 #%{_datadir}/%{name}/*.pyo
 
+%dir %{_datadir}/%{name}/virtManager
 %{_datadir}/%{name}/virtManager/*.py
 #%{_datadir}/%{name}/virtManager/*.pyc
 #%{_datadir}/%{name}/virtManager/*.pyo
 
-%{_datadir}/omf/%{name}
-%{_datadir}/gnome/help
+%dir %{_datadir}/omf/%{name}
+%dir %{_datadir}/gnome/help
 
 %{_desktopdir}/%{name}.desktop
 %{_datadir}/dbus-1/services/%{name}.service
