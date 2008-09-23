@@ -22,7 +22,7 @@ BuildRequires:	python-pygtk-devel >= 2.14
 BuildRequires:	scrollkeeper
 
 # These two are just the oldest version tested
-Requires:	pygtk2 >= 1.99.12-6
+Requires:	python-pygtk-gtk >= 1.99.12-6
 Requires:	python-gnome-gconf >= 1.99.11-7
 # Absolutely require this version or newer
 Requires:	python-libvirt >= 0.4.5
