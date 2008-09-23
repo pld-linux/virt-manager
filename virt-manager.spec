@@ -22,8 +22,8 @@ BuildRequires:	python-pygtk-devel >= 2.14
 BuildRequires:	scrollkeeper
 
 # These two are just the oldest version tested
-Requires:	python-pygtk-gtk >= 1.99.12-6
 Requires:	python-gnome-gconf >= 1.99.11-7
+Requires:	python-pygtk-gtk >= 1.99.12-6
 # Absolutely require this version or newer
 Requires:	python-libvirt >= 0.4.5
 # Definitely does not work with earlier due to python API changes
@@ -52,6 +52,9 @@ Requires:	scrollkeeper
 Requires:	python-gtk-vnc >= 0.3.4
 # For local authentication against PolicyKit
 Requires:	PolicyKit-gnome
+
+Requires:	python-urlgrabber
+Requires:	python-vte
 
 ExclusiveArch:	%{ix86} x86_64 ia64
 
