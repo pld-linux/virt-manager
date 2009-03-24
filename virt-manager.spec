@@ -1,13 +1,13 @@
 
 Summary:	Virtual Machine Manager
 Name:		virt-manager
-Version:	0.6.0
+Version:	0.7.0
 Release:	0.1
 License:	GPL v2+
 Group:		Applications/Emulators
 URL:		http://virt-manager.et.redhat.com/
 Source0:	http://virt-manager.et.redhat.com/download/sources/virt-manager/%{name}-%{version}.tar.gz
-# Source0-md5:	fd0acd111f180a0766b08d5f42cf5468
+# Source0-md5:	32ca0ab48fd317cb6598d88468f16951
 Patch0:		%{name}-python.patch
 BuildRequires:	atk-devel
 BuildRequires:	cairo-devel
