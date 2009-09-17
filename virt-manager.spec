@@ -2,7 +2,7 @@
 Summary:	Virtual Machine Manager
 Name:		virt-manager
 Version:	0.7.0
-Release:	0.1
+Release:	0.2
 License:	GPL v2+
 Group:		Applications/Emulators
 URL:		http://virt-manager.et.redhat.com/
@@ -28,13 +28,6 @@ Requires:	python-pygtk-gtk >= 1.99.12-6
 Requires:	python-libvirt >= 0.4.5
 # Definitely does not work with earlier due to python API changes
 Requires:	python-dbus >= 0.61
-# Might work with earlier, but this is what we've tested
-Requires:	gnome-keyring >= 0.4.9
-# Minimum we've tested with
-# Although if you don't have this, comment it out and the app
-# will work just fine - keyring functionality will simply be
-# disabled
-Requires:	python-gnome-desktop-keyring >= 2.15.4
 Requires:	python-gnome-vfs >= 2.15.4
 # Minimum we've tested with
 # Required for loading the glade UI
@@ -55,6 +48,8 @@ Requires:	PolicyKit-gnome
 
 Requires:	python-urlgrabber
 Requires:	python-vte
+Suggests:	gnome-keyring >= 0.4.9
+Suggests:	python-gnome-desktop-keyring >= 2.15.4
 
 ExclusiveArch:	%{ix86} x86_64 ia64
 
