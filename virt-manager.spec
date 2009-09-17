@@ -1,14 +1,13 @@
 
 Summary:	Virtual Machine Manager
 Name:		virt-manager
-Version:	0.7.0
-Release:	0.2
+Version:	0.8.0
+Release:	0.1
 License:	GPL v2+
 Group:		Applications/Emulators
 URL:		http://virt-manager.et.redhat.com/
 Source0:	http://virt-manager.et.redhat.com/download/sources/virt-manager/%{name}-%{version}.tar.gz
-# Source0-md5:	32ca0ab48fd317cb6598d88468f16951
-Patch0:		%{name}-python.patch
+# Source0-md5:	0b6cb9144e3933f2c9af07e2d409842d
 BuildRequires:	atk-devel
 BuildRequires:	cairo-devel
 BuildRequires:	gettext
@@ -36,7 +35,7 @@ Requires:	python-gnome-vfs >= 2.15.4
 Requires:	python-gnome-desktop-librsvg >= 2.14
 Requires:	python-libxml2 >= 2.6.23
 Requires:	python-pygtk-glade >= 2.12
-Requires:	python-virtinst >= 0.400.0
+Requires:	python-virtinst >= 0.500.0
 # Earlier vte had broken python binding module
 Requires:	vte >= 0.12.2
 # For online help
@@ -66,7 +65,6 @@ machines. Uses libvirt as the backend management API.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %configure
@@ -117,8 +115,6 @@ fi
 %{_sysconfdir}/gconf/schemas/%{name}.schemas
 %attr(755,root,root) %{_bindir}/%{name}
 %{_libexecdir}/%{name}-launch
-%dir %{_libdir}/%{name}
-%{_libdir}/%{name}/*
 
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/*.glade
