@@ -2,11 +2,12 @@
 Summary:	Virtual Machine Manager
 Name:		virt-manager
 Version:	0.8.0
-Release:	0.1
+Release:	0.2
 License:	GPL v2+
 Group:		Applications/Emulators
 URL:		http://virt-manager.et.redhat.com/
 Source0:	http://virt-manager.et.redhat.com/download/sources/virt-manager/%{name}-%{version}.tar.gz
+Patch0:		%{name}-close-nc-connection-on-EOF.patch
 # Source0-md5:	0b6cb9144e3933f2c9af07e2d409842d
 BuildRequires:	atk-devel
 BuildRequires:	cairo-devel
@@ -65,6 +66,7 @@ machines. Uses libvirt as the backend management API.
 
 %prep
 %setup -q
+%patch0
 
 %build
 %configure
