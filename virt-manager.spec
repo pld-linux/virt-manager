@@ -1,14 +1,14 @@
 
 Summary:	Virtual Machine Manager
 Name:		virt-manager
-Version:	0.8.0
-Release:	0.2
+Version:	0.8.1
+Release:	0.1
 License:	GPL v2+
 Group:		Applications/Emulators
 URL:		http://virt-manager.et.redhat.com/
 Source0:	http://virt-manager.et.redhat.com/download/sources/virt-manager/%{name}-%{version}.tar.gz
+# Source0-md5:	6e461e91d679dc87d9fc506f34832d90
 Patch0:		%{name}-close-nc-connection-on-EOF.patch
-# Source0-md5:	0b6cb9144e3933f2c9af07e2d409842d
 BuildRequires:	atk-devel
 BuildRequires:	cairo-devel
 BuildRequires:	gettext
@@ -36,7 +36,7 @@ Requires:	python-gnome-vfs >= 2.15.4
 Requires:	python-gnome-desktop-librsvg >= 2.14
 Requires:	python-libxml2 >= 2.6.23
 Requires:	python-pygtk-glade >= 2.12
-Requires:	python-virtinst >= 0.500.0
+Requires:	python-virtinst >= 0.500.1
 # Earlier vte had broken python binding module
 Requires:	vte >= 0.12.2
 # For online help
