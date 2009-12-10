@@ -11,11 +11,12 @@ Source0:	http://virt-manager.et.redhat.com/download/sources/virt-manager/%{name}
 Patch0:		%{name}-close-nc-connection-on-EOF.patch
 BuildRequires:	atk-devel
 BuildRequires:	cairo-devel
-BuildRequires:	gettext
+BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel
 #BuildRequires: gtk2-devel
 BuildRequires:	intltool
 BuildRequires:	pango-devel
+BuildRequires:	perl-tools-pod
 BuildRequires:	python-devel >= 2.14
 BuildRequires:	python-pygobject-devel >= 2.14
 BuildRequires:	python-pygtk-devel >= 2.14
