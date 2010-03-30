@@ -1,14 +1,12 @@
 
 Summary:	Virtual Machine Manager
 Name:		virt-manager
-Version:	0.8.1
+Version:	0.8.4
 Release:	0.1
 License:	GPL v2+
 Group:		Applications/Emulators
 URL:		http://virt-manager.et.redhat.com/
 Source0:	http://virt-manager.et.redhat.com/download/sources/virt-manager/%{name}-%{version}.tar.gz
-# Source0-md5:	6e461e91d679dc87d9fc506f34832d90
-Patch0:		%{name}-close-nc-connection-on-EOF.patch
 BuildRequires:	atk-devel
 BuildRequires:	cairo-devel
 BuildRequires:	gettext-devel
@@ -67,7 +65,6 @@ machines. Uses libvirt as the backend management API.
 
 %prep
 %setup -q
-%patch0
 
 %build
 %configure
@@ -124,6 +121,12 @@ fi
 %dir %{_datadir}/%{name}/pixmaps
 %{_datadir}/%{name}/pixmaps/*.png
 %{_datadir}/%{name}/pixmaps/*.svg
+%{_datadir}/%{name}/pixmaps/hicolor/16x16/action/*.png
+%{_datadir}/%{name}/pixmaps/hicolor/22x22/action/*.png
+%{_datadir}/%{name}/pixmaps/hicolor/24x24/action/*.png
+%{_datadir}/%{name}/pixmaps/hicolor/32x32/action/*.png
+
+
 
 %{_datadir}/%{name}/*.py
 #%{_datadir}/%{name}/*.pyc
@@ -135,7 +138,9 @@ fi
 #%{_datadir}/%{name}/virtManager/*.pyo
 
 %dir %{_datadir}/omf/%{name}
+%{_datadir}/omf/%{name}/*.omf
 %dir %{_datadir}/gnome/help
+%{_datadir}/gnome/help/%{name}
 
 %{_desktopdir}/%{name}.desktop
 %{_datadir}/dbus-1/services/%{name}.service
