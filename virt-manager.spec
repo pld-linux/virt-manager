@@ -79,6 +79,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/sparkline.a
 rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/sparkline.la
 %find_lang %{name}
 
+rm $RPM_BUILD_ROOT%{_datadir}/%{name}/pixmaps/*.svg
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -121,11 +123,7 @@ fi
 %{_datadir}/%{name}/*.glade
 %dir %{_datadir}/%{name}/pixmaps
 %{_datadir}/%{name}/pixmaps/*.png
-%{_datadir}/%{name}/pixmaps/*.svg
-%{_datadir}/%{name}/pixmaps/hicolor/16x16/action/*.png
-%{_datadir}/%{name}/pixmaps/hicolor/22x22/action/*.png
-%{_datadir}/%{name}/pixmaps/hicolor/24x24/action/*.png
-%{_datadir}/%{name}/pixmaps/hicolor/32x32/action/*.png
+%{_datadir}/%{name}/pixmaps/hicolor/*/action/*.png
 
 # TODO: py_comp/py_ocomp in install (see template-specs/python.spec)
 %{_datadir}/%{name}/*.py
