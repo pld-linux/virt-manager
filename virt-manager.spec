@@ -1,4 +1,7 @@
-
+# TODO
+# - pldize spec (use pld macros in post scriptes, fix deps)
+# - --disable-static instead of building and removing static libraries
+# - fix BR python 2.14
 Summary:	Virtual Machine Manager
 Name:		virt-manager
 Version:	0.8.4
@@ -15,11 +18,14 @@ BuildRequires:	glib2-devel
 BuildRequires:	intltool
 BuildRequires:	pango-devel
 BuildRequires:	perl-tools-pod
+# ???? so far 2.6 is latest python, and python has epoch 1
 BuildRequires:	python-devel >= 2.14
 BuildRequires:	python-pygobject-devel >= 2.14
 BuildRequires:	python-pygtk-devel >= 2.14
 BuildRequires:	scrollkeeper
-
+Requires(post):	GConf2
+Requires(pre):	GConf2
+Requires(preun):	GConf2
 # These two are just the oldest version tested
 Requires:	python-gnome-gconf >= 1.99.11-7
 Requires:	python-pygtk-gtk >= 1.99.12-6
@@ -44,17 +50,11 @@ Requires:	scrollkeeper
 Requires:	python-gtk-vnc >= 0.3.4
 # For local authentication against PolicyKit
 Requires:	PolicyKit-gnome
-
 Requires:	python-urlgrabber
 Requires:	python-vte
 Suggests:	gnome-keyring >= 0.4.9
 Suggests:	python-gnome-desktop-keyring >= 2.15.4
-
 ExclusiveArch:	%{ix86} x86_64 ia64
-
-Requires(post):	GConf2
-Requires(pre):	GConf2
-Requires(preun):	GConf2
 
 %description
 Virtual Machine Manager provides a graphical tool for administering
@@ -70,10 +70,11 @@ machines. Uses libvirt as the backend management API.
 %configure
 %{__make}
 
-
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} install  DESTDIR=$RPM_BUILD_ROOT
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
+
 rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/sparkline.a
 rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/sparkline.la
 %find_lang %{name}
@@ -83,9 +84,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %pre
 if [ "$1" -gt 1 ]; then
-    export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
-    gconftool-2 --makefile-uninstall-rule \
-      %{_sysconfdir}/gconf/schemas/%{name}.schemas > /dev/null || :
+	export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
+	gconftool-2 --makefile-uninstall-rule \
+	  %{_sysconfdir}/gconf/schemas/%{name}.schemas > /dev/null || :
 fi
 
 %post
@@ -104,9 +105,9 @@ if which scrollkeeper-update>/dev/null 2>&1; then scrollkeeper-update -q; fi
 
 %preun
 if [ "$1" -eq 0 ]; then
-    export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
-    gconftool-2 --makefile-uninstall-rule \
-      %{_sysconfdir}/gconf/schemas/%{name}.schemas > /dev/null || :
+	export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
+	gconftool-2 --makefile-uninstall-rule \
+	  %{_sysconfdir}/gconf/schemas/%{name}.schemas > /dev/null || :
 fi
 
 %files -f %{name}.lang
@@ -126,8 +127,7 @@ fi
 %{_datadir}/%{name}/pixmaps/hicolor/24x24/action/*.png
 %{_datadir}/%{name}/pixmaps/hicolor/32x32/action/*.png
 
-
-
+# TODO: py_comp/py_ocomp in install (see template-specs/python.spec)
 %{_datadir}/%{name}/*.py
 #%{_datadir}/%{name}/*.pyc
 #%{_datadir}/%{name}/*.pyo
@@ -141,8 +141,6 @@ fi
 %{_datadir}/omf/%{name}/*.omf
 %dir %{_datadir}/gnome/help
 %{_datadir}/gnome/help/%{name}
-
 %{_desktopdir}/%{name}.desktop
 %{_datadir}/dbus-1/services/%{name}.service
-
 %{_mandir}/man1/%{name}.1*
