@@ -1,0 +1,2 @@
+- use glob for icons, we don't package scalable pixmaps (are
+  icons in right place anyway (why not system icons dir?))
