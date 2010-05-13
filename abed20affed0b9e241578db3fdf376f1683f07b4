@@ -1,0 +1,3 @@
+- added Source0-md5
+- dropped BR: atk-devel, cairo-devel, pango-devel, python-devel,
+  python-pygobject-devel, python-pygtk-devel
