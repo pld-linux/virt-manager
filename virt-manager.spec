@@ -8,9 +8,9 @@ Version:	0.8.4
 Release:	0.1
 License:	GPL v2+
 Group:		Applications/Emulators
-URL:		http://virt-manager.et.redhat.com/
 Source0:	http://virt-manager.et.redhat.com/download/sources/virt-manager/%{name}-%{version}.tar.gz
 # Source0-md5:	133723a0495b79669b0903533d4a4671
+URL:		http://virt-manager.et.redhat.com/
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel
 BuildRequires:	intltool
@@ -81,13 +81,13 @@ rm -rf $RPM_BUILD_ROOT
 if [ "$1" -gt 1 ]; then
 	export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
 	gconftool-2 --makefile-uninstall-rule \
-	  %{_sysconfdir}/gconf/schemas/%{name}.schemas > /dev/null || :
+		%{_sysconfdir}/gconf/schemas/%{name}.schemas > /dev/null || :
 fi
 
 %post
 export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
 gconftool-2 --makefile-install-rule \
-  %{_sysconfdir}/gconf/schemas/%{name}.schemas > /dev/null || :
+	%{_sysconfdir}/gconf/schemas/%{name}.schemas > /dev/null || :
 
 update-desktop-database %{_desktopdir}
 
@@ -102,7 +102,7 @@ if which scrollkeeper-update>/dev/null 2>&1; then scrollkeeper-update -q; fi
 if [ "$1" -eq 0 ]; then
 	export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
 	gconftool-2 --makefile-uninstall-rule \
-	  %{_sysconfdir}/gconf/schemas/%{name}.schemas > /dev/null || :
+		%{_sysconfdir}/gconf/schemas/%{name}.schemas > /dev/null || :
 fi
 
 %files -f %{name}.lang
