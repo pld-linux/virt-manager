@@ -10,18 +10,11 @@ License:	GPL v2+
 Group:		Applications/Emulators
 URL:		http://virt-manager.et.redhat.com/
 Source0:	http://virt-manager.et.redhat.com/download/sources/virt-manager/%{name}-%{version}.tar.gz
-BuildRequires:	atk-devel
-BuildRequires:	cairo-devel
+# Source0-md5:	133723a0495b79669b0903533d4a4671
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel
-#BuildRequires: gtk2-devel
 BuildRequires:	intltool
-BuildRequires:	pango-devel
 BuildRequires:	perl-tools-pod
-# ???? so far 2.6 is latest python, and python has epoch 1
-BuildRequires:	python-devel >= 2.14
-BuildRequires:	python-pygobject-devel >= 2.14
-BuildRequires:	python-pygtk-devel >= 2.14
 BuildRequires:	scrollkeeper
 Requires(post):	GConf2
 Requires(pre):	GConf2
