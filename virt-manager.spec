@@ -48,6 +48,7 @@ Requires:	python-vte
 Suggests:	gnome-keyring >= 0.4.9
 Suggests:	python-gnome-desktop-keyring >= 2.15.4
 ExclusiveArch:	%{ix86} x86_64 ia64
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Virtual Machine Manager provides a graphical tool for administering
