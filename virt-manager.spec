@@ -1,20 +1,22 @@
 # TODO
 # - pldize spec (use pld macros in post scriptes, fix deps)
-# - --disable-static instead of building and removing static libraries
 # - fix BR python 2.14
 Summary:	Virtual Machine Manager
 Name:		virt-manager
-Version:	0.8.4
+Version:	0.8.7
 Release:	0.1
 License:	GPL v2+
 Group:		Applications/Emulators
 Source0:	http://virt-manager.et.redhat.com/download/sources/virt-manager/%{name}-%{version}.tar.gz
-# Source0-md5:	133723a0495b79669b0903533d4a4671
+# Source0-md5:	9b1f3ead125d53bf506216c4bc7c4a84
 URL:		http://virt-manager.et.redhat.com/
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel
 BuildRequires:	intltool
 BuildRequires:	perl-tools-pod
+BuildRequires:	python-devel >= 1:2.6
+BuildRequires:	python-pygobject-devel >= 2.14
+BuildRequires:	python-pygtk-devel >= 2.14
 BuildRequires:	scrollkeeper
 Requires(post):	GConf2
 Requires(pre):	GConf2
@@ -69,11 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/sparkline.a
-rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/sparkline.la
-%find_lang %{name}
+%{__rm} $RPM_BUILD_ROOT%{_datadir}/%{name}/pixmaps/*.svg
 
-rm $RPM_BUILD_ROOT%{_datadir}/%{name}/pixmaps/*.svg
+%find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -111,13 +111,14 @@ fi
 %doc README COPYING COPYING-DOCS AUTHORS ChangeLog NEWS
 %{_sysconfdir}/gconf/schemas/%{name}.schemas
 %attr(755,root,root) %{_bindir}/%{name}
+%attr(755,root,root) %{_bindir}/%{name}-tui
 %{_libexecdir}/%{name}-launch
 
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/*.glade
 %dir %{_datadir}/%{name}/pixmaps
 %{_datadir}/%{name}/pixmaps/*.png
-%{_datadir}/%{name}/pixmaps/hicolor/*/action/*.png
+%{_datadir}/%{name}/pixmaps/hicolor/*/actions/*.png
 
 # TODO: py_comp/py_ocomp in install (see template-specs/python.spec)
 %{_datadir}/%{name}/*.py
@@ -128,11 +129,13 @@ fi
 %{_datadir}/%{name}/virtManager/*.py
 #%{_datadir}/%{name}/virtManager/*.pyc
 #%{_datadir}/%{name}/virtManager/*.pyo
+%dir %{_datadir}/%{name}/virtManagerTui
+%{_datadir}/%{name}/virtManagerTui/*.py
 
-%dir %{_datadir}/omf/%{name}
-%{_datadir}/omf/%{name}/*.omf
-%dir %{_datadir}/gnome/help
-%{_datadir}/gnome/help/%{name}
+#%dir %{_datadir}/omf/%{name}
+#%{_datadir}/omf/%{name}/*.omf
+#%dir %{_datadir}/gnome/help
+#%{_datadir}/gnome/help/%{name}
 %{_desktopdir}/%{name}.desktop
 %{_datadir}/dbus-1/services/%{name}.service
 %{_mandir}/man1/%{name}.1*
