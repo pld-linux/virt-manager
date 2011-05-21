@@ -44,7 +44,7 @@ Requires:	scrollkeeper
 # For console widget
 Requires:	python-gtk-vnc >= 0.3.4
 # For local authentication against PolicyKit
-Requires:	PolicyKit-gnome
+Requires:	polkit-gnome
 Requires:	python-urlgrabber
 Requires:	python-vte
 Suggests:	gnome-keyring >= 0.4.9
@@ -70,8 +70,6 @@ machines. Uses libvirt as the backend management API.
 rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-%{__rm} $RPM_BUILD_ROOT%{_datadir}/%{name}/pixmaps/*.svg
 
 %find_lang %{name}
 
@@ -118,6 +116,7 @@ fi
 %{_datadir}/%{name}/*.glade
 %dir %{_datadir}/%{name}/pixmaps
 %{_datadir}/%{name}/pixmaps/*.png
+%{_datadir}/%{name}/pixmaps/*.svg
 %{_datadir}/%{name}/pixmaps/hicolor/*/actions/*.png
 
 # TODO: py_comp/py_ocomp in install (see template-specs/python.spec)
