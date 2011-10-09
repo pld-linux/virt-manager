@@ -1,54 +1,42 @@
 # TODO
-# - pldize spec (use pld macros in post scriptes, fix deps)
 # - fix BR python 2.14
 Summary:	Virtual Machine Manager
 Name:		virt-manager
-Version:	0.8.7
-Release:	0.1
+Version:	0.9.0
+Release:	1
 License:	GPL v2+
 Group:		Applications/Emulators
-Source0:	http://virt-manager.et.redhat.com/download/sources/virt-manager/%{name}-%{version}.tar.gz
-# Source0-md5:	9b1f3ead125d53bf506216c4bc7c4a84
-URL:		http://virt-manager.et.redhat.com/
-BuildRequires:	gettext-devel
+Source0:	http://virt-manager.org/download/sources/virt-manager/%{name}-%{version}.tar.gz
+# Source0-md5:	a10331b467f92f4134a39bf636e04adc
+URL:		http://virt-manager.org/
+BuildRequires:	gettext-devel >= 0.14.1
 BuildRequires:	glib2-devel
-BuildRequires:	intltool
+BuildRequires:	intltool >= 0.35.0
 BuildRequires:	perl-tools-pod
 BuildRequires:	python-devel >= 1:2.6
-BuildRequires:	python-pygobject-devel >= 2.14
-BuildRequires:	python-pygtk-devel >= 2.14
-BuildRequires:	scrollkeeper
-Requires(post):	GConf2
-Requires(pre):	GConf2
-Requires(preun):	GConf2
-# These two are just the oldest version tested
-Requires:	python-gnome-gconf >= 1.99.11-7
-Requires:	python-pygtk-gtk >= 1.99.12-6
-# Absolutely require this version or newer
-Requires:	python-libvirt >= 0.4.5
-# Definitely does not work with earlier due to python API changes
-Requires:	python-dbus >= 0.61
-Requires:	python-gnome-vfs >= 2.15.4
-# Minimum we've tested with
-# Required for loading the glade UI
-# Required for our graphics which are currently SVG format
-# Required to install Xen & QEMU guests
-Requires:	python-gnome-desktop-librsvg >= 2.14
-Requires:	python-libxml2 >= 2.6.23
-Requires:	python-pygtk-glade >= 2.12
-Requires:	python-virtinst >= 0.500.1
-# Earlier vte had broken python binding module
-Requires:	vte >= 0.12.2
-# For online help
-Requires:	scrollkeeper
-# For console widget
-Requires:	python-gtk-vnc >= 0.3.4
-# For local authentication against PolicyKit
-Requires:	polkit-gnome
+BuildRequires:	python-pygobject-devel >= 2.28.6
+BuildRequires:	python-pygtk-devel >= 2.24.0
+Requires(pre,preun,post):	GConf2
+Requires(post,postun):	gtk-update-icon-cache
+Requires:	python-gnome-gconf >= 2.28.1
+Requires:	python-pygobject >= 2.28.6
+Requires:	python-pygtk-gtk >= 2.24.0
+Requires:	python-libvirt >= 0.9.6
+Requires:	python-dbus >= 0.84.0
+Requires:	python-gnome-vfs >= 2.28.1
+Requires:	python-gnome-desktop-librsvg >= 2.32.0
+Requires:	python-libxml2 >= 2.7.8
+Requires:	python-pygtk-glade >= 2.24.0
+Requires:	python-virtinst >= 0.600.0
+Requires:	hicolor-icon-theme
+Requires:	python-gtk-vnc >= 0.4.3
 Requires:	python-urlgrabber
-Requires:	python-vte
+Requires:	python-cairo
+Requires:	python-vte0 >= 0.28.2
+Suggests:	python-libguestfs >= 1.12.0
 Suggests:	gnome-keyring >= 0.4.9
 Suggests:	python-gnome-desktop-keyring >= 2.15.4
+Suggests:	python-spice-gtk
 ExclusiveArch:	%{ix86} x86_64 ia64
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -63,46 +51,40 @@ machines. Uses libvirt as the backend management API.
 %setup -q
 
 %build
-%configure
+%configure \
+	--with-libvirt-package-names=libvirt \
+	--with-kvm-packages=qemu-kvm
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_iconsdir}/hicolor/256x256/apps
+
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+mv $RPM_BUILD_ROOT%{_iconsdir}/hicolor/{,256x256/}apps/virt-manager.png
+
+%py_comp $RPM_BUILD_ROOT%{_datadir}/%{name}
+%py_ocomp $RPM_BUILD_ROOT%{_datadir}/%{name}
+# requires patching
+#%%py_postclean %{_datadir}/%{name}
 
 %find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%pre
-if [ "$1" -gt 1 ]; then
-	export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
-	gconftool-2 --makefile-uninstall-rule \
-		%{_sysconfdir}/gconf/schemas/%{name}.schemas > /dev/null || :
-fi
-
 %post
-export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
-gconftool-2 --makefile-install-rule \
-	%{_sysconfdir}/gconf/schemas/%{name}.schemas > /dev/null || :
-
-update-desktop-database %{_desktopdir}
-
-if which scrollkeeper-update>/dev/null 2>&1; then scrollkeeper-update -q -o %{_datadir}/omf/%{name}; fi
-
-%postun
-update-desktop-database %{_desktopdir}
-
-if which scrollkeeper-update>/dev/null 2>&1; then scrollkeeper-update -q; fi
+%gconf_schema_install %{name}.schemas
+%update_icon_cache hicolor
 
 %preun
-if [ "$1" -eq 0 ]; then
-	export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
-	gconftool-2 --makefile-uninstall-rule \
-		%{_sysconfdir}/gconf/schemas/%{name}.schemas > /dev/null || :
-fi
+%gconf_schema_uninstall %{name}.schemas
+
+%postun
+%update_icon_cache hicolor
+
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
@@ -114,27 +96,21 @@ fi
 
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/*.glade
-%dir %{_datadir}/%{name}/pixmaps
-%{_datadir}/%{name}/pixmaps/*.png
-%{_datadir}/%{name}/pixmaps/*.svg
-%{_datadir}/%{name}/pixmaps/hicolor/*/actions/*.png
+%{_datadir}/%{name}/icons
+%{_iconsdir}/hicolor/*/apps/virt-manager.png
 
-# TODO: py_comp/py_ocomp in install (see template-specs/python.spec)
 %{_datadir}/%{name}/*.py
-#%{_datadir}/%{name}/*.pyc
-#%{_datadir}/%{name}/*.pyo
-
+%{_datadir}/%{name}/*.py[co]
 %dir %{_datadir}/%{name}/virtManager
 %{_datadir}/%{name}/virtManager/*.py
-#%{_datadir}/%{name}/virtManager/*.pyc
-#%{_datadir}/%{name}/virtManager/*.pyo
+%{_datadir}/%{name}/virtManager/*.py[co]
 %dir %{_datadir}/%{name}/virtManagerTui
 %{_datadir}/%{name}/virtManagerTui/*.py
+%{_datadir}/%{name}/virtManagerTui/*.py[co]
+%dir %{_datadir}/%{name}/virtManagerTui/importblacklist
+%{_datadir}/%{name}/virtManagerTui/importblacklist/*.py
+%{_datadir}/%{name}/virtManagerTui/importblacklist/*.py[co]
 
-#%dir %{_datadir}/omf/%{name}
-#%{_datadir}/omf/%{name}/*.omf
-#%dir %{_datadir}/gnome/help
-#%{_datadir}/gnome/help/%{name}
 %{_desktopdir}/%{name}.desktop
 %{_datadir}/dbus-1/services/%{name}.service
 %{_mandir}/man1/%{name}.1*
