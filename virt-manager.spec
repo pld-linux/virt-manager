@@ -3,7 +3,7 @@
 Summary:	Virtual Machine Manager
 Name:		virt-manager
 Version:	0.9.1
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		Applications/Emulators
 Source0:	http://virt-manager.org/download/sources/virt-manager/%{name}-%{version}.tar.gz
@@ -31,7 +31,7 @@ Requires:	python-gnome-vfs >= 2.28.1
 Requires:	python-gnome-desktop-librsvg >= 2.32.0
 Requires:	python-libxml2 >= 2.7.8
 Requires:	python-pygtk-glade >= 2.24.0
-Requires:	python-virtinst >= 0.600.0
+Requires:	python-virtinst >= 0.600.1
 Requires:	hicolor-icon-theme
 Requires:	python-gtk-vnc >= 0.4.3
 Requires:	python-urlgrabber
