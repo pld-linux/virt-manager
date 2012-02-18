@@ -2,20 +2,24 @@
 # - fix BR python 2.14
 Summary:	Virtual Machine Manager
 Name:		virt-manager
-Version:	0.9.0
-Release:	2
+Version:	0.9.1
+Release:	1
 License:	GPL v2+
 Group:		Applications/Emulators
 Source0:	http://virt-manager.org/download/sources/virt-manager/%{name}-%{version}.tar.gz
-# Source0-md5:	a10331b467f92f4134a39bf636e04adc
+# Source0-md5:	cfee07b277e315b16d5180cfab5f8307
 URL:		http://virt-manager.org/
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	gettext-devel >= 0.14.1
 BuildRequires:	glib2-devel
 BuildRequires:	intltool >= 0.35.0
+BuildRequires:	libtool
 BuildRequires:	perl-tools-pod
 BuildRequires:	python-devel >= 1:2.6
 BuildRequires:	python-pygobject-devel >= 2.28.6
 BuildRequires:	python-pygtk-devel >= 2.24.0
+BuildRequires:	sed >= 4.0
 Requires(pre,preun,post):	GConf2
 Requires(post,postun):	gtk-update-icon-cache
 Requires:	python-gnome-gconf >= 2.28.1
@@ -50,7 +54,13 @@ machines. Uses libvirt as the backend management API.
 %prep
 %setup -q
 
+%{__sed} -i -e 's|PWD|shell pwd|g' icons/hicolor/*/Makefile.am
+
 %build
+%{__libtoolize}
+%{__aclocal}
+%{__autoconf}
+%{__automake}
 %configure \
 	--with-libvirt-package-names=libvirt \
 	--with-kvm-packages=qemu-kvm
@@ -58,12 +68,9 @@ machines. Uses libvirt as the backend management API.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_iconsdir}/hicolor/256x256/apps
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-mv $RPM_BUILD_ROOT%{_iconsdir}/hicolor/{,256x256/}apps/virt-manager.png
 
 %py_comp $RPM_BUILD_ROOT%{_datadir}/%{name}
 %py_ocomp $RPM_BUILD_ROOT%{_datadir}/%{name}
