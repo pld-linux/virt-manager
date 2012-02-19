@@ -3,11 +3,12 @@
 Summary:	Virtual Machine Manager
 Name:		virt-manager
 Version:	0.9.1
-Release:	2
+Release:	3
 License:	GPL v2+
 Group:		Applications/Emulators
 Source0:	http://virt-manager.org/download/sources/virt-manager/%{name}-%{version}.tar.gz
 # Source0-md5:	cfee07b277e315b16d5180cfab5f8307
+Patch0:		%{name}-dead-code.patch
 URL:		http://virt-manager.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -53,6 +54,7 @@ machines. Uses libvirt as the backend management API.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %{__sed} -i -e 's|PWD|shell pwd|g' icons/hicolor/*/Makefile.am
 
