@@ -1,6 +1,7 @@
 # TODO
 # - fix BR python 2.14
 Summary:	Virtual Machine Manager
+Summary(pl.UTF-8):	Zarządca maszyn wirtualnych
 Name:		virt-manager
 Version:	0.9.1
 Release:	4
@@ -10,7 +11,7 @@ Source0:	http://virt-manager.org/download/sources/virt-manager/%{name}-%{version
 # Source0-md5:	cfee07b277e315b16d5180cfab5f8307
 Patch0:		%{name}-dead-code.patch
 URL:		http://virt-manager.org/
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	gettext-devel >= 0.14.1
 BuildRequires:	glib2-devel
@@ -41,7 +42,7 @@ Suggests:	python-libguestfs >= 1.12.0
 Suggests:	gnome-keyring >= 0.4.9
 Suggests:	python-gnome-desktop-keyring >= 2.15.4
 Suggests:	python-spice-gtk
-ExclusiveArch:	%{ix86} x86_64 ia64
+ExclusiveArch:	%{ix86} %{x8664} ia64
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -50,6 +51,15 @@ virtual machines for KVM, Xen, and QEmu. Start, stop, add or remove
 virtual devices, connect to a graphical or serial console, and see
 resource usage statistics for existing VMs on local or remote
 machines. Uses libvirt as the backend management API.
+
+%description -l pl.UTF-8
+Virtual Machine Manager udostępnia graficzne narzędzie do
+administrowania maszynami wirtualnymi dla środowisk KVM, Xen i QEmu.
+Pozwala uruchamiać, zatrzymywać, dodawać i usuwać urządzenia
+wirtualne, łączyć się z konsolą graficzną lub szeregową oraz oglądać
+statystyki wykorzystania zasobów istniejących maszyn wirtualnych na
+maszynach lokalnych i zdalnych. Wykorzystuje libvirt jako API do
+zarządzania.
 
 %prep
 %setup -q
