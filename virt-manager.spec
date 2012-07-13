@@ -3,13 +3,12 @@
 Summary:	Virtual Machine Manager
 Summary(pl.UTF-8):	Zarządca maszyn wirtualnych
 Name:		virt-manager
-Version:	0.9.1
-Release:	4
+Version:	0.9.3
+Release:	1
 License:	GPL v2+
 Group:		Applications/Emulators
 Source0:	http://virt-manager.org/download/sources/virt-manager/%{name}-%{version}.tar.gz
-# Source0-md5:	cfee07b277e315b16d5180cfab5f8307
-Patch0:		%{name}-dead-code.patch
+# Source0-md5:	4c03f1628c76a891f45c0375bf5590da
 URL:		http://virt-manager.org/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -19,8 +18,6 @@ BuildRequires:	intltool >= 0.35.0
 BuildRequires:	libtool
 BuildRequires:	perl-tools-pod
 BuildRequires:	python-devel >= 1:2.6
-BuildRequires:	python-pygobject-devel >= 2.28.6
-BuildRequires:	python-pygtk-devel >= 2.24.0
 BuildRequires:	sed >= 4.0
 Requires(pre,preun,post):	GConf2
 Requires(post,postun):	gtk-update-icon-cache
@@ -30,17 +27,16 @@ Requires:	python-pygtk-gtk >= 2.24.0
 Requires:	python-libvirt >= 0.9.6
 Requires:	python-dbus >= 0.84.0
 Requires:	python-gnome-desktop-librsvg >= 2.32.0
-Requires:	python-libxml2 >= 2.7.8
-Requires:	python-pygtk-glade >= 2.24.0
+Requires:	python-libxml2 >= 1:2.7.8
 Requires:	python-virtinst >= 0.600.1
 Requires:	hicolor-icon-theme
 Requires:	python-gtk-vnc >= 0.4.3
 Requires:	python-urlgrabber
 Requires:	python-pycairo
 Requires:	python-vte0 >= 0.28.2
-Suggests:	python-libguestfs >= 1.12.0
 Suggests:	gnome-keyring >= 0.4.9
 Suggests:	python-gnome-desktop-keyring >= 2.15.4
+Suggests:	python-libguestfs >= 1.12.0
 Suggests:	python-spice-gtk
 ExclusiveArch:	%{ix86} %{x8664} ia64
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -63,7 +59,6 @@ zarządzania.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %{__sed} -i -e 's|PWD|shell pwd|g' icons/hicolor/*/Makefile.am
 
@@ -106,14 +101,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc README COPYING COPYING-DOCS AUTHORS ChangeLog NEWS
+%doc AUTHORS ChangeLog NEWS README TODO
 %{_sysconfdir}/gconf/schemas/%{name}.schemas
 %attr(755,root,root) %{_bindir}/%{name}
 %attr(755,root,root) %{_bindir}/%{name}-tui
 %{_libexecdir}/%{name}-launch
 
 %dir %{_datadir}/%{name}
-%{_datadir}/%{name}/*.glade
 %{_datadir}/%{name}/icons
 %{_iconsdir}/hicolor/*/apps/virt-manager.png
 
@@ -128,6 +122,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/%{name}/virtManagerTui/importblacklist
 %{_datadir}/%{name}/virtManagerTui/importblacklist/*.py
 %{_datadir}/%{name}/virtManagerTui/importblacklist/*.py[co]
+%{_datadir}/%{name}/vmm-*.ui
 
 %{_desktopdir}/%{name}.desktop
 %{_datadir}/dbus-1/services/%{name}.service
