@@ -1,14 +1,12 @@
-# TODO
-# - fix BR python 2.14
 Summary:	Virtual Machine Manager
 Summary(pl.UTF-8):	Zarządca maszyn wirtualnych
 Name:		virt-manager
-Version:	0.9.3
+Version:	0.9.4
 Release:	1
 License:	GPL v2+
 Group:		Applications/Emulators
 Source0:	http://virt-manager.org/download/sources/virt-manager/%{name}-%{version}.tar.gz
-# Source0-md5:	4c03f1628c76a891f45c0375bf5590da
+# Source0-md5:	7f724839749f6d8d2e57ce8bb8a6a76f
 URL:		http://virt-manager.org/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -19,20 +17,20 @@ BuildRequires:	libtool
 BuildRequires:	perl-tools-pod
 BuildRequires:	python-devel >= 1:2.6
 BuildRequires:	sed >= 4.0
-Requires(pre,preun,post):	GConf2
+Requires(post,preun):	GConf2
 Requires(post,postun):	gtk-update-icon-cache
-Requires:	python-gnome-gconf >= 2.28.1
-Requires:	python-pygobject >= 2.28.6
-Requires:	python-pygtk-gtk >= 2.24.0
-Requires:	python-libvirt >= 0.9.6
+Requires:	hicolor-icon-theme
 Requires:	python-dbus >= 0.84.0
 Requires:	python-gnome-desktop-librsvg >= 2.32.0
-Requires:	python-libxml2 >= 1:2.7.8
-Requires:	python-virtinst >= 0.600.1
-Requires:	hicolor-icon-theme
+Requires:	python-gnome-gconf >= 2.28.1
 Requires:	python-gtk-vnc >= 0.4.3
-Requires:	python-urlgrabber
+Requires:	python-libvirt >= 0.9.6
+Requires:	python-libxml2 >= 1:2.7.8
 Requires:	python-pycairo
+Requires:	python-pygobject >= 2.28.6
+Requires:	python-pygtk-gtk >= 2:2.24.0
+Requires:	python-urlgrabber
+Requires:	python-virtinst >= 0.600.3
 Requires:	python-vte0 >= 0.28.2
 Suggests:	gnome-keyring >= 0.4.9
 Suggests:	python-gnome-desktop-keyring >= 2.15.4
@@ -97,7 +95,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %postun
 %update_icon_cache hicolor
-
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
