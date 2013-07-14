@@ -3,6 +3,7 @@ Summary(pl.UTF-8):	Zarządca maszyn wirtualnych
 Name:		virt-manager
 Version:	0.10.0
 Release:	2
+Epoch:		1
 License:	GPL v2+
 Group:		Applications/Emulators
 Source0:	http://virt-manager.org/download/sources/virt-manager/%{name}-%{version}.tar.gz
@@ -16,7 +17,7 @@ BuildRequires:	python-devel >= 1:2.6
 BuildRequires:	rpmbuild(macros) >= 1.592
 Requires(post,postun):	glib2
 Requires(post,postun):	gtk-update-icon-cache
-Requires:	python-libvirt = %{version}-%{release}
+Requires:	python-libvirt = %{epoch}:%{version}-%{release}
 Requires:	gtk3-vnc >= 0.4.3
 Requires:	gtk+3 >= 3.0
 Requires:	hicolor-icon-theme
