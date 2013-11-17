@@ -2,7 +2,7 @@ Summary:	Virtual Machine Manager
 Summary(pl.UTF-8):	Zarządca maszyn wirtualnych
 Name:		virt-manager
 Version:	0.10.0
-Release:	5
+Release:	6
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Emulators
