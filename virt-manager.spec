@@ -25,7 +25,6 @@ Requires:	python-dbus >= 0.84.0
 Requires:	python-gnome-desktop-librsvg >= 2.32.0
 Requires:	python-gnome-gconf >= 2.28.1
 Requires:	python-ipaddr
-Requires:	python-ipaddr
 Requires:	python-libvirt >= 0.9.6
 Requires:	python-libvirt-glib
 Requires:	python-pygobject3
