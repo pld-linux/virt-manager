@@ -1,13 +1,13 @@
 Summary:	Virtual Machine Manager
 Summary(pl.UTF-8):	Zarządca maszyn wirtualnych
 Name:		virt-manager
-Version:	0.10.0
-Release:	6
+Version:	1.0.0
+Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Emulators
-Source0:	http://virt-manager.org/download/sources/virt-manager/%{name}-%{version}.tar.gz
-# Source0-md5:	e23b8d2a7623b4e8e256c25735f332c8
+Source0:	https://fedorahosted.org/released/virt-manager/%{name}-%{version}.tar.gz
+# Source0-md5:	8a0585de48d8060a5394aae912342c95
 URL:		http://virt-manager.org/
 BuildRequires:	gettext-devel >= 0.14.1
 BuildRequires:	glib2-devel
@@ -124,6 +124,7 @@ fi
 %dir %{_datadir}/%{name}/virtManager
 %{_datadir}/%{name}/virtManager/*.py*
 %attr(755,root,root) %{_datadir}/%{name}/virt-manager
+%{_datadir}/appdata/virt-manager.appdata.xml
 %{_datadir}/glib-2.0/schemas/org.virt-manager.virt-manager.gschema.xml
 %{_desktopdir}/%{name}.desktop
 %{_iconsdir}/hicolor/*/apps/virt-manager.png
@@ -135,22 +136,23 @@ fi
 %attr(755,root,root) %{_bindir}/virt-convert
 %attr(755,root,root) %{_bindir}/virt-image
 %attr(755,root,root) %{_bindir}/virt-install
+%attr(755,root,root) %{_bindir}/virt-xml
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/virtcli
 %{_datadir}/%{name}/virtcli/*.py*
 %{_datadir}/%{name}/virtcli/cli.cfg
 %dir %{_datadir}/%{name}/virtconv
 %{_datadir}/%{name}/virtconv/*.py*
-%dir %{_datadir}/%{name}/virtconv/parsers
-%{_datadir}/%{name}/virtconv/parsers/*.py*
 %dir %{_datadir}/%{name}/virtinst
 %{_datadir}/%{name}/virtinst/*.py*
 %attr(755,root,root) %{_datadir}/%{name}/virt-clone
 %attr(755,root,root) %{_datadir}/%{name}/virt-convert
 %attr(755,root,root) %{_datadir}/%{name}/virt-image
 %attr(755,root,root) %{_datadir}/%{name}/virt-install
+%attr(755,root,root) %{_datadir}/%{name}/virt-xml
 %{_mandir}/man1/virt-clone.1*
 %{_mandir}/man1/virt-convert.1*
 %{_mandir}/man1/virt-image.1*
 %{_mandir}/man1/virt-install.1*
+%{_mandir}/man1/virt-xml.1*
 %{_mandir}/man5/virt-image.5*
