@@ -1,14 +1,13 @@
 Summary:	Virtual Machine Manager
 Summary(pl.UTF-8):	Zarządca maszyn wirtualnych
 Name:		virt-manager
-Version:	1.0.1
-Release:	2
+Version:	1.1.0
+Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Emulators
 Source0:	https://fedorahosted.org/released/virt-manager/%{name}-%{version}.tar.gz
-# Source0-md5:	4741c0d93d69cef5f936b2ea2d8348c5
-Patch1:		virt-manager-git.patch
+# Source0-md5:	baf6eaa88b02bdd7a3c2fdd293eeb6ac
 URL:		http://virt-manager.org/
 BuildRequires:	gettext-devel >= 0.14.1
 BuildRequires:	glib2-devel
@@ -21,8 +20,8 @@ Requires(post,postun):	gtk-update-icon-cache
 Requires:	gtk+3 >= 3.0
 Requires:	gtk3-vnc >= 0.4.3
 Requires:	hicolor-icon-theme
-Requires:	libosinfo
-Requires:	libvirt-glib
+Requires:	libosinfo >= 0.2.10
+Requires:	libvirt-glib >= 0.0.9
 Requires:	python-dbus >= 0.84.0
 Requires:	python-gnome-desktop-librsvg >= 2.32.0
 Requires:	python-gnome-gconf >= 2.28.1
@@ -82,7 +81,6 @@ virt-clone (klonujący istniejącą maszynę wirtualną).
 
 %prep
 %setup -q
-%patch1 -p1
 
 %build
 %{__python} setup.py configure \
@@ -137,7 +135,6 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/virt-clone
 %attr(755,root,root) %{_bindir}/virt-convert
-%attr(755,root,root) %{_bindir}/virt-image
 %attr(755,root,root) %{_bindir}/virt-install
 %attr(755,root,root) %{_bindir}/virt-xml
 %dir %{_datadir}/%{name}
@@ -150,12 +147,9 @@ fi
 %{_datadir}/%{name}/virtinst/*.py*
 %attr(755,root,root) %{_datadir}/%{name}/virt-clone
 %attr(755,root,root) %{_datadir}/%{name}/virt-convert
-%attr(755,root,root) %{_datadir}/%{name}/virt-image
 %attr(755,root,root) %{_datadir}/%{name}/virt-install
 %attr(755,root,root) %{_datadir}/%{name}/virt-xml
 %{_mandir}/man1/virt-clone.1*
 %{_mandir}/man1/virt-convert.1*
-%{_mandir}/man1/virt-image.1*
 %{_mandir}/man1/virt-install.1*
 %{_mandir}/man1/virt-xml.1*
-%{_mandir}/man5/virt-image.5*
