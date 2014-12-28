@@ -9,7 +9,7 @@ Group:		Applications/Emulators
 Source0:	https://fedorahosted.org/released/virt-manager/%{name}-%{version}.tar.gz
 # Source0-md5:	baf6eaa88b02bdd7a3c2fdd293eeb6ac
 URL:		http://virt-manager.org/
-BuildRequires:	gettext-devel >= 0.14.1
+BuildRequires:	gettext-tools >= 0.14.1
 BuildRequires:	glib2-devel
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	perl-tools-pod
