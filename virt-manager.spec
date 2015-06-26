@@ -1,13 +1,13 @@
 Summary:	Virtual Machine Manager
 Summary(pl.UTF-8):	Zarządca maszyn wirtualnych
 Name:		virt-manager
-Version:	1.1.0
+Version:	1.2.1
 Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Emulators
 Source0:	https://fedorahosted.org/released/virt-manager/%{name}-%{version}.tar.gz
-# Source0-md5:	baf6eaa88b02bdd7a3c2fdd293eeb6ac
+# Source0-md5:	c8045da517e7c9d8696e22970291c55e
 URL:		http://virt-manager.org/
 BuildRequires:	gettext-tools >= 0.14.1
 BuildRequires:	glib2-devel
@@ -125,6 +125,7 @@ fi
 %dir %{_datadir}/%{name}/virtManager
 %{_datadir}/%{name}/virtManager/*.py*
 %attr(755,root,root) %{_datadir}/%{name}/virt-manager
+%{_datadir}/GConf/gsettings/org.virt-manager.virt-manager.convert
 %{_datadir}/appdata/virt-manager.appdata.xml
 %{_datadir}/glib-2.0/schemas/org.virt-manager.virt-manager.gschema.xml
 %{_desktopdir}/%{name}.desktop
