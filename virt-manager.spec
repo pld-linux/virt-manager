@@ -13,11 +13,11 @@ BuildRequires:	gettext-tools >= 0.14.1
 BuildRequires:	glib2-devel
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	perl-tools-pod
-BuildRequires:	python-devel >= 1:2.6
+BuildRequires:	python-devel >= 1:2.7
 BuildRequires:	rpmbuild(macros) >= 1.592
 Requires(post,postun):	glib2
 Requires(post,postun):	gtk-update-icon-cache
-Requires:	gtk+3 >= 3.0
+Requires:	gtk+3 >= 3.14
 Requires:	gtk3-vnc >= 0.4.3
 Requires:	hicolor-icon-theme
 Requires:	libosinfo >= 0.2.10
@@ -27,8 +27,7 @@ Requires:	python-gnome-desktop-librsvg >= 2.32.0
 Requires:	python-gnome-gconf >= 2.28.1
 Requires:	python-ipaddr
 Requires:	python-libvirt >= 0.9.6
-Requires:	python-libvirt-glib
-Requires:	python-pygobject3
+Requires:	python-pygobject3 >= 3.14
 Requires:	python-virtinst = %{epoch}:%{version}-%{release}
 Requires:	spice-gtk
 Requires:	vte >= 0.34
