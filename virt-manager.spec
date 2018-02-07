@@ -1,13 +1,13 @@
 Summary:	Virtual Machine Manager
 Summary(pl.UTF-8):	Zarządca maszyn wirtualnych
 Name:		virt-manager
-Version:	1.4.3
+Version:	1.5.0
 Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Emulators
 Source0:	https://releases.pagure.org/virt-manager/%{name}-%{version}.tar.gz
-# Source0-md5:	077916aae947bf2461e7d7d1fb2ddfd3
+# Source0-md5:	9e96d99fe10c529ceb93edf14162b6c8
 URL:		http://virt-manager.org/
 BuildRequires:	gettext-tools >= 0.14.1
 BuildRequires:	glib2-devel
