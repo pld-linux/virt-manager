@@ -2,7 +2,7 @@ Summary:	Virtual Machine Manager
 Summary(pl.UTF-8):	Zarządca maszyn wirtualnych
 Name:		virt-manager
 Version:	2.2.0
-Release:	1
+Release:	2
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Emulators
@@ -14,6 +14,7 @@ BuildRequires:	glib2-devel
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	perl-tools-pod
 BuildRequires:	python3-devel
+BuildRequires:	python3-libvirt
 BuildRequires:	rpmbuild(macros) >= 1.592
 Requires(post,postun):	glib2
 Requires(post,postun):	gtk-update-icon-cache
