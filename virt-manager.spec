@@ -14,7 +14,8 @@ BuildRequires:	glib2-devel
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	perl-tools-pod
 BuildRequires:	python3-devel
-BuildRequires:	python3-libvirt
+BuildRequires:	python3-libvirt >= 0.9.6
+BuildRequires:	python3-libxml2 >= 1:2.7.8
 BuildRequires:	rpmbuild(macros) >= 1.592
 Requires(post,postun):	glib2
 Requires(post,postun):	gtk-update-icon-cache
