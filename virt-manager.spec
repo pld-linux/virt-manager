@@ -1,13 +1,13 @@
 Summary:	Virtual Machine Manager
 Summary(pl.UTF-8):	Zarządca maszyn wirtualnych
 Name:		virt-manager
-Version:	2.1.0
+Version:	2.2.0
 Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Emulators
 Source0:	https://releases.pagure.org/virt-manager/%{name}-%{version}.tar.gz
-# Source0-md5:	f9b820bf5213566a15b0c82f8151a418
+# Source0-md5:	e2cc07609e11915496e9480232c29869
 URL:		http://virt-manager.org/
 BuildRequires:	gettext-tools >= 0.14.1
 BuildRequires:	glib2-devel
@@ -19,6 +19,7 @@ Requires(post,postun):	glib2
 Requires(post,postun):	gtk-update-icon-cache
 Requires:	gtk+3 >= 3.14
 Requires:	gtk3-vnc >= 0.4.3
+Requires:	gtksourceview4
 Requires:	hicolor-icon-theme
 Requires:	libosinfo >= 0.2.10
 Requires:	libvirt-glib >= 0.0.9
@@ -79,7 +80,7 @@ virt-clone (klonujący istniejącą maszynę wirtualną).
 
 %build
 %{__python3} setup.py \
-        configure \
+	configure \
 	--prefix=%{_prefix}
 
 %py3_build
@@ -112,6 +113,14 @@ fi
 %{_datadir}/%{name}/ui
 %dir %{_datadir}/%{name}/virtManager
 %{_datadir}/%{name}/virtManager/*.py*
+%dir %{_datadir}/%{name}/virtManager/details
+%{_datadir}/%{name}/virtManager/details/*.py*
+%dir %{_datadir}/%{name}/virtManager/device
+%{_datadir}/%{name}/virtManager/device/*.py*
+%dir %{_datadir}/%{name}/virtManager/lib
+%{_datadir}/%{name}/virtManager/lib/*.py*
+%dir %{_datadir}/%{name}/virtManager/object
+%{_datadir}/%{name}/virtManager/object/*.py*
 %attr(755,root,root) %{_datadir}/%{name}/virt-manager
 %{_datadir}/appdata/virt-manager.appdata.xml
 %{_datadir}/glib-2.0/schemas/org.virt-manager.virt-manager.gschema.xml
@@ -126,17 +135,17 @@ fi
 %attr(755,root,root) %{_bindir}/virt-install
 %attr(755,root,root) %{_bindir}/virt-xml
 %dir %{_datadir}/%{name}
-%dir %{_datadir}/%{name}/virtcli
-%{_datadir}/%{name}/virtcli/*.py*
-%{_datadir}/%{name}/virtcli/cli.cfg
 %dir %{_datadir}/%{name}/virtconv
 %{_datadir}/%{name}/virtconv/*.py*
 %dir %{_datadir}/%{name}/virtinst
+%{_datadir}/%{name}/virtinst/build.cfg
 %{_datadir}/%{name}/virtinst/*.py*
 %dir %{_datadir}/%{name}/virtinst/devices
 %{_datadir}/%{name}/virtinst/devices/*.py*
 %dir %{_datadir}/%{name}/virtinst/domain
 %{_datadir}/%{name}/virtinst/domain/*.py*
+%dir %{_datadir}/%{name}/virtinst/install
+%{_datadir}/%{name}/virtinst/install/*.py*
 %attr(755,root,root) %{_datadir}/%{name}/virt-clone
 %attr(755,root,root) %{_datadir}/%{name}/virt-convert
 %attr(755,root,root) %{_datadir}/%{name}/virt-install
