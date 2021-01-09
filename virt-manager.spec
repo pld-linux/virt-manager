@@ -1,13 +1,13 @@
 Summary:	Virtual Machine Manager
 Summary(pl.UTF-8):	Zarządca maszyn wirtualnych
 Name:		virt-manager
-Version:	2.2.1
+Version:	3.2.0
 Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Emulators
 Source0:	https://releases.pagure.org/virt-manager/%{name}-%{version}.tar.gz
-# Source0-md5:	adb4fa436d60b62a8e18a7b3a1667d97
+# Source0-md5:	a87507223c32d15eb12e1754404061dc
 URL:		http://virt-manager.org/
 BuildRequires:	gettext-tools >= 0.14.1
 BuildRequires:	glib2-devel
@@ -51,6 +51,23 @@ statystyki wykorzystania zasobów istniejących maszyn wirtualnych na
 maszynach lokalnych i zdalnych. Wykorzystuje libvirt jako API do
 zarządzania.
 
+%package -n bash-completion-virt-manager
+Summary:	bash-completion for virt-clone, virt-install and virt-xml commands
+Summary(pl.UTF-8):	bashowe uzupełnianie parametrów poleceń virt-clone, virt-install i virt-xml
+Group:		Applications/Shells
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	bash-completion >= 2.0
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
+
+%description -n bash-completion-virt-manager
+Bash-completion for virt-clone, virt-install and virt-xml commands.
+
+%description -n bash-completion-virt-manager -l pl.UTF-8
+Bashowe uzupełnianie parametrów polecenń virt-clone, virt-install i
+virt-xml.
+
 %package -n python3-virtinst
 Summary:	Python modules and utilities for installing virtual machines
 Summary(pl.UTF-8):	Moduły Pythona i narzędzia do instalowania maszyn wirtualnych
@@ -80,6 +97,9 @@ virt-clone (klonujący istniejącą maszynę wirtualną).
 %prep
 %setup -q
 
+%{__sed} -i '1s,/usr/bin/env python3$,%{__python3},' \
+	virtManager/virtmanager.py
+
 %build
 %{__python3} setup.py \
 	configure \
@@ -91,6 +111,8 @@ virt-clone (klonujący istniejącą maszynę wirtualną).
 rm -rf $RPM_BUILD_ROOT
 
 %py3_install
+
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/kab
 
 %find_lang %{name}
 
@@ -123,22 +145,24 @@ fi
 %{_datadir}/%{name}/virtManager/lib/*.py*
 %dir %{_datadir}/%{name}/virtManager/object
 %{_datadir}/%{name}/virtManager/object/*.py*
-%attr(755,root,root) %{_datadir}/%{name}/virt-manager
-%{_datadir}/appdata/virt-manager.appdata.xml
+%{_datadir}/metainfo/virt-manager.appdata.xml
 %{_datadir}/glib-2.0/schemas/org.virt-manager.virt-manager.gschema.xml
 %{_desktopdir}/%{name}.desktop
 %{_iconsdir}/hicolor/*/apps/virt-manager.png
 %{_mandir}/man1/virt-manager.1*
 
+%files -n bash-completion-virt-manager
+%defattr(644,root,root,755)
+%{bash_compdir}/virt-clone
+%{bash_compdir}/virt-install
+%{bash_compdir}/virt-xml
+
 %files -n python3-virtinst -f %{name}.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/virt-clone
-%attr(755,root,root) %{_bindir}/virt-convert
 %attr(755,root,root) %{_bindir}/virt-install
 %attr(755,root,root) %{_bindir}/virt-xml
 %dir %{_datadir}/%{name}
-%dir %{_datadir}/%{name}/virtconv
-%{_datadir}/%{name}/virtconv/*.py*
 %dir %{_datadir}/%{name}/virtinst
 %{_datadir}/%{name}/virtinst/build.cfg
 %{_datadir}/%{name}/virtinst/*.py*
@@ -148,11 +172,6 @@ fi
 %{_datadir}/%{name}/virtinst/domain/*.py*
 %dir %{_datadir}/%{name}/virtinst/install
 %{_datadir}/%{name}/virtinst/install/*.py*
-%attr(755,root,root) %{_datadir}/%{name}/virt-clone
-%attr(755,root,root) %{_datadir}/%{name}/virt-convert
-%attr(755,root,root) %{_datadir}/%{name}/virt-install
-%attr(755,root,root) %{_datadir}/%{name}/virt-xml
 %{_mandir}/man1/virt-clone.1*
-%{_mandir}/man1/virt-convert.1*
 %{_mandir}/man1/virt-install.1*
 %{_mandir}/man1/virt-xml.1*
