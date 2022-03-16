@@ -1,13 +1,13 @@
 Summary:	Virtual Machine Manager
 Summary(pl.UTF-8):	Zarządca maszyn wirtualnych
 Name:		virt-manager
-Version:	3.2.0
+Version:	4.0.0
 Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Emulators
 Source0:	https://releases.pagure.org/virt-manager/%{name}-%{version}.tar.gz
-# Source0-md5:	a87507223c32d15eb12e1754404061dc
+# Source0-md5:	4c407920b9d3c385e4ceaa177f003b9d
 URL:		http://virt-manager.org/
 BuildRequires:	gettext-tools >= 0.14.1
 BuildRequires:	glib2-devel
@@ -30,8 +30,10 @@ Requires:	python3-pygobject3 >= 3.14
 Requires:	python3-virtinst = %{epoch}:%{version}-%{release}
 Requires:	spice-gtk
 Requires:	vte >= 0.34
+Requires:	xorriso
 Suggests:	gnome-keyring >= 0.4.9
 Suggests:	python3-libguestfs >= 1.12.0
+BuildArch:	noarch
 ExclusiveArch:	%{ix86} %{x8664} ia64
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -95,20 +97,23 @@ virt-clone (klonujący istniejącą maszynę wirtualną).
 %prep
 %setup -q
 
-%{__sed} -i '1s,/usr/bin/env python3$,%{__python3},' \
+%{__sed} -i '1s,%{_bindir}/env python3$,%{__python3},' \
 	virtManager/virtmanager.py
 
 %build
 %{__python3} setup.py \
 	configure \
-	--prefix=%{_prefix}
-
-%py3_build
+	--prefix=%{_prefix} \
+	--default-graphics="spice"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%py3_install
+%{__python3} setup.py \
+	--no-update-icon-cache \
+	--no-compile-schemas install \
+	--prefix=%{_prefix} \
+	-O1 --root=$RPM_BUILD_ROOT
 
 %{__rm} -r $RPM_BUILD_ROOT%{_localedir}/kab
 
