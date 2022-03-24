@@ -34,7 +34,6 @@ Requires:	xorriso
 Suggests:	gnome-keyring >= 0.4.9
 Suggests:	python3-libguestfs >= 1.12.0
 BuildArch:	noarch
-ExclusiveArch:	%{ix86} %{x8664} ia64
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
