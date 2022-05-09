@@ -2,13 +2,15 @@ Summary:	Virtual Machine Manager
 Summary(pl.UTF-8):	Zarządca maszyn wirtualnych
 Name:		virt-manager
 Version:	4.0.0
-Release:	1
+Release:	2
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Emulators
 Source0:	https://releases.pagure.org/virt-manager/%{name}-%{version}.tar.gz
 # Source0-md5:	4c407920b9d3c385e4ceaa177f003b9d
+Patch0:		setuptools-61.patch
 URL:		http://virt-manager.org/
+BuildRequires:	docutils
 BuildRequires:	gettext-tools >= 0.14.1
 BuildRequires:	glib2-devel
 BuildRequires:	intltool >= 0.35.0
@@ -95,6 +97,7 @@ virt-clone (klonujący istniejącą maszynę wirtualną).
 
 %prep
 %setup -q
+%patch0 -p1
 
 %{__sed} -i '1s,%{_bindir}/env python3$,%{__python3},' \
 	virtManager/virtmanager.py
