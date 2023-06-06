@@ -1,34 +1,29 @@
 Summary:	Virtual Machine Manager
 Summary(pl.UTF-8):	Zarządca maszyn wirtualnych
 Name:		virt-manager
-Version:	4.0.0
-Release:	2
+Version:	4.1.0
+Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Emulators
 Source0:	https://releases.pagure.org/virt-manager/%{name}-%{version}.tar.gz
-# Source0-md5:	4c407920b9d3c385e4ceaa177f003b9d
-Patch0:		setuptools-61.patch
-URL:		http://virt-manager.org/
+# Source0-md5:	8bf86bcc7e43a956ff94ebdaf4d7d399
+URL:		https://virt-manager.org/
+# rst2man
 BuildRequires:	docutils
 BuildRequires:	gettext-tools >= 0.14.1
-BuildRequires:	glib2-devel
-BuildRequires:	intltool >= 0.35.0
-BuildRequires:	perl-tools-pod
-BuildRequires:	python3-devel
-BuildRequires:	python3-libvirt >= 0.9.6
-BuildRequires:	python3-libxml2 >= 1:2.7.8
+BuildRequires:	python3-devel >= 1:3
 BuildRequires:	rpmbuild(macros) >= 1.592
 Requires(post,postun):	glib2
 Requires(post,postun):	gtk-update-icon-cache
-Requires:	gtk+3 >= 3.14
+Requires:	gtk+3 >= 3.22.0
 Requires:	gtk3-vnc >= 0.4.3
 Requires:	gtksourceview4
 Requires:	hicolor-icon-theme
 Requires:	libosinfo >= 0.2.10
 Requires:	libvirt-glib >= 0.0.9
 Requires:	python3-libvirt >= 0.9.6
-Requires:	python3-pygobject3 >= 3.14
+Requires:	python3-pygobject3 >= 3.32
 Requires:	python3-virtinst = %{epoch}:%{version}-%{release}
 Requires:	spice-gtk
 Requires:	vte >= 0.34
@@ -97,14 +92,9 @@ virt-clone (klonujący istniejącą maszynę wirtualną).
 
 %prep
 %setup -q
-%patch0 -p1
-
-%{__sed} -i '1s,%{_bindir}/env python3$,%{__python3},' \
-	virtManager/virtmanager.py
 
 %build
-%{__python3} setup.py \
-	configure \
+%{__python3} setup.py configure \
 	--prefix=%{_prefix} \
 	--default-graphics="spice"
 
@@ -113,11 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__python3} setup.py \
 	--no-update-icon-cache \
-	--no-compile-schemas install \
+	--no-compile-schemas \
+	install \
 	--prefix=%{_prefix} \
 	-O1 --root=$RPM_BUILD_ROOT
-
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/kab
 
 %find_lang %{name}
 
