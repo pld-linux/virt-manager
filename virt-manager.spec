@@ -1,13 +1,13 @@
 Summary:	Virtual Machine Manager
 Summary(pl.UTF-8):	Zarządca maszyn wirtualnych
 Name:		virt-manager
-Version:	4.1.0
+Version:	5.0.0
 Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Emulators
-Source0:	https://releases.pagure.org/virt-manager/%{name}-%{version}.tar.gz
-# Source0-md5:	8bf86bcc7e43a956ff94ebdaf4d7d399
+Source0:	https://releases.pagure.org/virt-manager/%{name}-%{version}.tar.xz
+# Source0-md5:	83b4c8dec30d445fc7117f6dc7418315
 URL:		https://virt-manager.org/
 # rst2man
 BuildRequires:	docutils
@@ -94,19 +94,24 @@ virt-clone (klonujący istniejącą maszynę wirtualną).
 %setup -q
 
 %build
-%{__python3} setup.py configure \
-	--prefix=%{_prefix} \
-	--default-graphics="spice"
+%meson \
+	-Ddefault-hvs="qemu,xen,lxc" \
+	-Dupdate-icon-cache=false \
+	-Dcompile-schemas=false \
+	-Dtests=disabled \
+	build
+
+%ninja_build -C build
+
+%{__sed} -i '1s,/usr/bin/env python3$,%{__python3},' \
+		build/{virt-clone,virt-install,virt-manager,virt-xml}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__python3} setup.py \
-	--no-update-icon-cache \
-	--no-compile-schemas \
-	install \
-	--prefix=%{_prefix} \
-	-O1 --root=$RPM_BUILD_ROOT
+%ninja_install -C build
+
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/ie
 
 %find_lang %{name}
 
