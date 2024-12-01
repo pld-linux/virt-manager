@@ -12,10 +12,14 @@ URL:		https://virt-manager.org/
 # rst2man
 BuildRequires:	docutils
 BuildRequires:	gettext-tools >= 0.14.1
-BuildRequires:	python3-devel >= 1:3
-BuildRequires:	rpmbuild(macros) >= 1.592
-Requires(post,postun):	glib2
+BuildRequires:	meson >= 0.63.0
+BuildRequires:	ninja >= 1.5
+BuildRequires:	python3-devel >= 1:3.4
+BuildRequires:	rpmbuild(macros) >= 1.736
+BuildRequires:	sed >= 4.0
+Requires(post,postun):	glib2 >= 1:1.26
 Requires(post,postun):	gtk-update-icon-cache
+Requires:	dconf
 Requires:	gtk+3 >= 3.22.0
 Requires:	gtk3-vnc >= 0.4.3
 Requires:	gtksourceview4
@@ -70,7 +74,7 @@ Summary(pl.UTF-8):	Moduły Pythona i narzędzia do instalowania maszyn wirtualny
 Group:		Libraries/Python
 Requires:	python3-libvirt >= 0.9.6
 Requires:	python3-libxml2 >= 1:2.7.8
-Requires:	python3-modules
+Requires:	python3-modules >= 1:3.4
 Requires:	python3-requests
 Suggests:	python3-selinux
 Suggests:	virt-viewer >= 0.0.1
@@ -93,18 +97,16 @@ virt-clone (klonujący istniejącą maszynę wirtualną).
 %prep
 %setup -q
 
+%{__sed} -i -e 's,/usr/bin/env python3,%{__python3},' scripts/make_bin_wrapper.py
+
 %build
-%meson \
+%meson build \
 	-Ddefault-hvs="qemu,xen,lxc" \
 	-Dupdate-icon-cache=false \
 	-Dcompile-schemas=false \
-	-Dtests=disabled \
-	build
+	-Dtests=disabled
 
 %ninja_build -C build
-
-%{__sed} -i '1s,/usr/bin/env python3$,%{__python3},' \
-		build/{virt-clone,virt-install,virt-manager,virt-xml}
 
 %install
 rm -rf $RPM_BUILD_ROOT
